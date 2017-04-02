@@ -1,54 +1,45 @@
 <?php 
-require_once('recaptchalib.php');
 
 function SendContactEmail() {
+    //$body = "From: $name\n E-Mail: $email\n Message:\n $message";
+    $name = !empty($_POST['name'])?$_POST['name']:'';
+    $email = !empty($_POST['email'])?$_POST['email']:'';
+    $negros12 = !empty($_POST['negros12'])?$_POST['negros12']:'';
+    $negros10 = !empty($_POST['negros10'])?$_POST['negros10']:'';
+    $blancos12 = !empty($_POST['blancos12'])?$_POST['blancos12']:'';
+    $blancos10 = !empty($_POST['blancos10'])?$_POST['blancos10']:'';
+    $message = !empty($_POST['message'])?$_POST['message']:'';
+    $from = 'From: Aurora Huevos';
+    
+    $to = 'power500@gmail.com'; 
+    $subject = 'Pedido de huevos';
 
-    //$human = $_POST['human'];
+    $htmlContent = "
+        <h1>Nuevo pedido de huevos</h1>
+        <br />
+        <p><b>Nombre: </b>".$name."</p>
+        <p><b>Info de contacto: </b>".$email."</p>
+        <p><b>Cantidad de huevos NEGROS nro. 12: </b>".$negros12."</p>
+        <p><b>Cantidad de huevos NEGROS nro. 10: </b>".$negros10."</p>
+        <br />
+        <p><b>Cantidad de huevos BLANCOS nro. 12: </b>".$blancos12."</p>
+        <p><b>Cantidad de huevos BLANCOS nro. 10: </b>".$blancos10."</p>
+        <br />
+        <p><b>Mensaje: </b>".$message."</p>
+    ";
 
-    if(isset($_POST['grecaptcharesponse']) && !empty($_POST['grecaptcharesponse'])) {
-        // your site secret key
-        $secret = getSiteSecretKey();
-        
-        //get verify response data
-        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['grecaptcharesponse']);
+    // Always set content-type when sending HTML email
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    // More headers
+    $headers .= 'From:'.$name. "\r\n";
 
-        $responseData = json_decode($verifyResponse);
-
-        if($responseData->success) {
-            //$body = "From: $name\n E-Mail: $email\n Message:\n $message";
-            $name = !empty($_POST['name'])?$_POST['name']:'';
-            $email = !empty($_POST['email'])?$_POST['email']:'';
-            $message = !empty($_POST['message'])?$_POST['message']:'';
-            $from = 'From: ReLatIBaS';
-            
-            $to = 'power500@gmail.com'; 
-            $subject = 'Contact';
-
-            $htmlContent = "
-                <h1>Contact request details</h1>
-                <p><b>Name: </b>".$name."</p>
-                <p><b>Email: </b>".$email."</p>
-                <p><b>Message: </b>".$message."</p>
-            ";
-
-            // Always set content-type when sending HTML email
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            // More headers
-            $headers .= 'From:'.$name.' <'.$email.'>' . "\r\n";
-
-            //mail($para, $titulo, $mensaje, $cabeceras);
-            //if (mail ($to, $subject, $headers, $from)) { 
-            if (mail ($to, $subject, $htmlContent, $headers)) { 
-                echo 'ok';  // Your message has been sent!
-            } else { 
-                echo 'error';   // Something went wrong, go back and try again!
-            }
-        } else {
-             echo 'humanFail'; // Robot verification failed, please try again.
-        }
-    } else {
-         echo 'humanEmpty';  // Please click on the reCAPTCHA box.
+    //mail($para, $titulo, $mensaje, $cabeceras);
+    //if (mail ($to, $subject, $headers, $from)) { 
+    if (mail ($to, $subject, $htmlContent, $headers)) { 
+        echo 'ok';  // Your message has been sent!
+    } else { 
+        echo 'error';   // Something went wrong, go back and try again!
     }
 
 }
@@ -72,15 +63,5 @@ function getDataSitekey() {
         return '6LfTGBMUAAAAAIHhb_jQ06BxdTL72zLNFSrZtira';  // public key
     }
 }
-
-// reCAPTCHA Site secret key
-function getSiteSecretKey() {
-    if (isLocalServer()) {
-        return '6LfTDhMUAAAAAGHBcDEMhBlzZo44T8dE2DZE97zA';  // local key
-    } else {
-        return '6LfTGBMUAAAAAEbGluBBA-mJdHPIPCcu1OS6dAyk';  // public key
-    }
-}
-
 
 ?>

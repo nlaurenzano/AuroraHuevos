@@ -3,16 +3,15 @@ function SendContactEmail()
 
 	var name = $("#name").val();
 	var email = $("#email").val();
+	var negros12 = $("#negros12").val();
+	var negros10 = $("#negros10").val();
+	var blancos12 = $("#blancos12").val();
+	var blancos10 = $("#blancos10").val();
 	var message = $("#message").val();
 
-	var grecaptcharesponse = grecaptcha.getResponse();
-
-	//var human = $("#human").val();
-
-	//if ($.trim(name)=='' || $.trim(email)=='' || $.trim(message)=='' || $.trim(human)=='') {
-	if ($.trim(name)=='' || $.trim(email)=='' || $.trim(message)=='') {
-		$("#contactResponseTitle").html(contactEmptyLabel);
-		$("#contactResponse").html(contactEmptyContent);
+	if ($.trim(name)=='' || $.trim(email)=='' || ($.trim(negros12)=='' && $.trim(negros10)=='' &&$.trim(blancos12)=='' && $.trim(blancos10)=='')) {
+		$("#contactResponseTitle").html("¡Atención!");
+		$("#contactResponse").html("Por favor completá todos los campos.");
 	} else {
 		var ajaxFunction=$.ajax({
 			url:"./php/nexo.php",
@@ -21,35 +20,30 @@ function SendContactEmail()
 				doWhat:'SendContactEmail',
 				name:name,
 				email:email,
+				negros12:negros12,
+				negros10:negros10,
+				blancos12:blancos12,
+				blancos10:blancos10,
 				message:message,
-				grecaptcharesponse:grecaptcharesponse
-				//human:human
 			}
 		});
 		ajaxFunction.done(function(response) {
 			switch(response) {
 			    case 'ok':
-			        $("#contactResponseTitle").html(sentMsgTitle);
-					$("#contactResponse").html(sentMsgContent);	// Your message has been sent!
+			        $("#contactResponseTitle").html("¡Gracias!");
+					$("#contactResponse").html("Tu pedido ya fué enviado.");	// Your message has been sent!
 
 					$("#name").val('');
 					$("#email").val('');
+					$("#negros12").val('');
+					$("#negros10").val('');
+					$("#blancos12").val('');
+					$("#blancos10").val('');
 					$("#message").val('');
-					grecaptcha.reset();
-			        break;
-			    case 'humanFail':
-			        $("#contactResponseTitle").html(humanErrorLabel);
-					$("#contactResponse").html(humanErrorMsg);	// Robot verification failed, please try again.
-					grecaptcha.reset();
-			        break;
-			    case 'humanEmpty':
-			        $("#contactResponseTitle").html(humanEmptyLabel);
-					$("#contactResponse").html(humanEmptyMsg);	// Something went wrong, go back and try again!
 			        break;
 			    case 'error':
-			        $("#contactResponseTitle").html(notSentMsgTitle);
-					$("#contactResponse").html(notSentMsgContent);	// Something went wrong, go back and try again!
-					grecaptcha.reset();
+			        $("#contactResponseTitle").html("Error");
+					$("#contactResponse").html("Algo ha salido mal. Volvé a intentarlo.");	// Something went wrong, go back and try again!
 			        break;
 			    default:
 			        

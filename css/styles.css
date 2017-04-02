@@ -66,7 +66,8 @@ p {
 }
 
 .bg-primary {
-    background-color: #333;
+    /*background-color: #333;*/
+    background-color: #666;
 }
 
 .bg-dark {
@@ -97,6 +98,20 @@ p {
 
 section {
     padding: 70px 0;
+
+     /*position: relative;
+    min-height: auto;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    background-color: #c9c9c9;
+    */
+    background-image: url('../assets/eggs-happy-easter-spring-holiday-celebration.jpg');
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
 
 aside {
@@ -127,18 +142,6 @@ footer {
     -webkit-transition: padding .2s ease-in;
     -moz-transition: padding .2s ease-in;
     transition: padding .2s ease-in;
-
-    
-
-
-    /*
-    background-image: url('../assets/Logo_Aurora.png');
-    background-position: center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-    */
 }
 
 .navbar-header > .navbar-brand:hover,
@@ -246,8 +249,6 @@ header {
     width: 100%;
     /*background-color: #c9c9c9;*/
     background-color: #fff;
-    /*background-image: url('../Life-of-Pix-free-stock-photos-Slate-Stone-Xeromatic-1440x953.jpg');*/
-    /*background-image: url('../assets/Logo_Aurora.png');*/
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -331,7 +332,7 @@ footer {
     
     section {
         min-height: 600px;
-        padding: 100px 0;
+        padding: 50px 0;
     }
 
 }
