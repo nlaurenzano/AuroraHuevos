@@ -1,5 +1,8 @@
 <?php 
 
+require_once('AccesoDatos.php');
+require_once("Elemento.php");
+
 function SendContactEmail() {
     //$body = "From: $name\n E-Mail: $email\n Message:\n $message";
     $name = !empty($_POST['name'])?$_POST['name']:'';
@@ -9,8 +12,11 @@ function SendContactEmail() {
     $blancos12 = !empty($_POST['blancos12'])?$_POST['blancos12']:'';
     $blancos10 = !empty($_POST['blancos10'])?$_POST['blancos10']:'';
     $message = !empty($_POST['message'])?$_POST['message']:'';
-    $from = 'From: Aurora Huevos';
     
+    // Antes de mandar el mail, registro el pedido en la DB
+    Elemento::Guardar($name, $email, $negros12, $negros10, $blancos12, $blancos10, $message);
+
+    $from = 'From: Aurora Huevos';
     $to = 'power500@gmail.com'; 
     $subject = 'Pedido de huevos';
 
@@ -55,12 +61,13 @@ function isLocalServer() {
     return strContains('localhost',$_SERVER['HTTP_HOST']);   
 }
 
-// reCAPTCHA Data site key
-function getDataSitekey() {
+function getObjectPDO() {
     if (isLocalServer()) {
-        return '6LfTDhMUAAAAAPK-0Qwjlehd9tTR4ssWb0dUWSFv';  // local key
+        // local server
+        return new PDO('mysql:host=localhost;dbname=aurorahuevos;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     } else {
-        return '6LfTGBMUAAAAAIHhb_jQ06BxdTL72zLNFSrZtira';  // public key
+        // non local server
+        return new PDO('mysql:host=localhost;dbname=u525665255_huevo;charset=utf8', 'u525665255_admin', 'Chocolitas', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     }
 }
 

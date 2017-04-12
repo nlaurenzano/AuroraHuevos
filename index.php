@@ -50,24 +50,24 @@
                         <div class="col-md-3">
                             <div class="col-md-12">
                                 <label>CHOCOLATE NEGRO</label>
-                                <input type="text" class="form-control" placeholder="Nro. 12 (200g.)" name="negros12" id="negros12">
+                                <input type="text" class="form-control" placeholder="Nro. 12 - $60 (200g.)" name="negros12" id="negros12">
                             </div>
 
                             <div class="col-md-12">
                                 <label></label>
-                                <input type="text" class="form-control" placeholder="Nro. 10" name="negros10" id="negros10">
+                                <input type="text" class="form-control" placeholder="Nro. 10 - $40" name="negros10" id="negros10">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="col-md-12">
                                 <label>CHOCOLATE BLANCO</label>
-                                <input type="text" class="form-control" placeholder="Nro. 12 (200g.)" name="blancos12" id="blancos12">
+                                <input type="text" class="form-control" placeholder="Nro. 12 - $60 (200g.)" name="blancos12" id="blancos12">
                             </div>
 
                             <div class="col-md-12">
                                 <label></label>
-                                <input type="text" class="form-control" placeholder="Nro. 10" name="blancos10" id="blancos10">
+                                <input type="text" class="form-control" placeholder="Nro. 10 - $40" name="blancos10" id="blancos10">
                             </div>
                         </div>
 

@@ -1,6 +1,6 @@
 function SendContactEmail()
 {
-
+	var valid = true;
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var negros12 = $("#negros12").val();
@@ -9,131 +9,79 @@ function SendContactEmail()
 	var blancos10 = $("#blancos10").val();
 	var message = $("#message").val();
 
-	if ($.trim(name)=='' || $.trim(email)=='' || ($.trim(negros12)=='' && $.trim(negros10)=='' &&$.trim(blancos12)=='' && $.trim(blancos10)=='')) {
+	if ($.trim(name)=='' || $.trim(email)=='') {
 		$("#contactResponseTitle").html("¡Atención!");
-		$("#contactResponse").html("Por favor completá todos los campos.");
-	} else {
-		var ajaxFunction=$.ajax({
-			url:"./php/nexo.php",
-			type:"post",
-			data:{
-				doWhat:'SendContactEmail',
-				name:name,
-				email:email,
-				negros12:negros12,
-				negros10:negros10,
-				blancos12:blancos12,
-				blancos10:blancos10,
-				message:message,
-			}
-		});
-		ajaxFunction.done(function(response) {
-			switch(response) {
-			    case 'ok':
-			        $("#contactResponseTitle").html("¡Gracias!");
-					$("#contactResponse").html("Tu pedido ya fué enviado.");	// Your message has been sent!
-
-					$("#name").val('');
-					$("#email").val('');
-					$("#negros12").val('');
-					$("#negros10").val('');
-					$("#blancos12").val('');
-					$("#blancos10").val('');
-					$("#message").val('');
-			        break;
-			    case 'error':
-			        $("#contactResponseTitle").html("Error");
-					$("#contactResponse").html("Algo ha salido mal. Volvé a intentarlo.");	// Something went wrong, go back and try again!
-			        break;
-			    default:
-			        
-			}
-
-			
-		});
-		ajaxFunction.fail(function(response) {
-			$("#contactResponseTitle").html('Error');
-			$("#contactResponse").html(response.responseText);
-		});
-		ajaxFunction.always(function(response) {
-			//alert("siempre "+response.statusText);
-
-		});
+		$("#contactResponse").html("Por favor completá los datos de contacto.");
+		return false;
 	}
-}
 
+	if ($.trim(negros12)=='' && $.trim(negros10)=='' &&$.trim(blancos12)=='' && $.trim(blancos10)=='') {
+		$("#contactResponseTitle").html("¡Atención!");
+		$("#contactResponse").html("Por favor indicá las cantidades de tu pedido.");
+		return false;
+	}
 
-/*function Show(showWhat)
-{
-	$("#principal").html('<img style="padding-top:10%;" src="imagenes/preloader.gif">');
-
+	if ( !(validarCantidad(negros12) && validarCantidad(negros10) &&validarCantidad(blancos12) && validarCantidad(blancos10)) ) {
+		$("#contactResponseTitle").html("¡Atención!");
+		$("#contactResponse").html("Solo se pueden ingresar números enteros en las cantidades.");
+		return false;
+	}
+	
 	var ajaxFunction=$.ajax({
-		url:"nexo.php",
+		url:"./php/nexo.php",
 		type:"post",
-		data:{doWhat:showWhat}
-	});
-	ajaxFunction.done(function(retorno){
-		$("#principal").html(retorno);
-	});
-	ajaxFunction.fail(function(retorno){
-		$("#principal").html(retorno.responseText);	
-	});
-	ajaxFunction.always(function(retorno){
-		//alert("siempre "+retorno.statusText);
-
-	});
-}
-
-function MostrarLogin() {
-	var funcionAjax=$.ajax({
-		url:"nexo.php",
-		type:"post",
-		data:{doWhat:"MostrarLogin"}
-	});
-	funcionAjax.done(function(retorno) {
-		$("#formLogin").html(retorno);
-	});
-	funcionAjax.fail(function(retorno) {
-		$("#mensajesLogin").html("Error en login.");
-	});
-	funcionAjax.always(function(retorno) {
-		//alert("siempre "+retorno.statusText);
-	});
-}
-
-function MostrarJSON(tablas) {
-	//return tablas;
-	tablas = JSON.parse(tablas);
-	var retorno;
-
-switch (tablas.status) {
-	case 'success':
-		retorno = '<div style="padding:10px;">';
-		retorno += '<div style="float:left;">';
-
-		// TODO: Cambiar títulos de la tabla
-		retorno += "<table><tr><th>Nombre</th><th>Precio</th><th>Tipo</th><th>Acciones</th></tr>";
-
-		for (var i = 0; i <= tablas.data.length - 1; i++) {
-			retorno +=  "<tr><td>" + tablas.data[i].campo1 + "</td>";
-			retorno +=  "<td>" + tablas.data[i].campo2 + "</td>";
-			retorno +=  "<td>" + tablas.data[i].campo3 + "</td>";
-			retorno +=  '<td><button class="btn btn-danger" style="margin-right:5px;"" name="Borrar" onclick="Borrar(\''+tablas.data[i].id+'\')">Borrar</button>';
-			retorno +=  '<button class="btn btn-warning" name="Modificar" onclick="Modificar(\''+tablas.data[i].id+'\')">Modificar</button></td>';
-			retorno +=  '</tr>';
+		data:{
+			doWhat:'SendContactEmail',
+			name:name,
+			email:email,
+			negros12:negros12,
+			negros10:negros10,
+			blancos12:blancos12,
+			blancos10:blancos10,
+			message:message,
 		}
-		retorno += '</table></div>';
-		break;
-	case 'fail':
-		retorno = '<h2>' + tablas.data + ':</h2><pre>' + tablas.message + '</pre>';
-		break;
+	});
+	ajaxFunction.done(function(response) {
+		switch(response) {
+		    case 'ok':
+		        $("#contactResponseTitle").html("¡Gracias!");
+				$("#contactResponse").html("Tu pedido ya fué enviado.");	// Your message has been sent!
 
-	case 'error':
-		retorno = '<h2>ERROR EN EL CLIENTE:</h2><pre>' + tablas.message + '</pre>';
-		break;
-	default:
-		retorno = '';
+				$("#name").val('');
+				$("#email").val('');
+				$("#negros12").val('');
+				$("#negros10").val('');
+				$("#blancos12").val('');
+				$("#blancos10").val('');
+				$("#message").val('');
+		        break;
+		    case 'error':
+		        $("#contactResponseTitle").html("Error");
+				$("#contactResponse").html("Algo ha salido mal. Volvé a intentarlo.");	// Something went wrong, go back and try again!
+		        break;
+		    default:
+		}
+	});
+	ajaxFunction.fail(function(response) {
+		$("#contactResponseTitle").html('Error');
+		$("#contactResponse").html(response.responseText);
+	});
+	ajaxFunction.always(function(response) {
+		//alert("siempre "+response.statusText);
+
+	});
+}
+
+function validarCantidad(valor) {
+	if (valor != '') {
+		valor = Number(valor);
+		if (Number.isInteger(valor)) {
+			if (valor < 0) {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
-
-	return retorno;
-}*/
+	return true;
+}

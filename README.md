@@ -8,10 +8,23 @@ Mail testing:
 OK	Texto
 OK	Formulario
 OK	Envío de mail
-
-Colores
-Subir a host
-
-Enviar al grupo para que lo vean
+Pseee... Colores
+OK	Enviar al grupo para que lo vean
 
 Registro en DB
+Subir a host
+
+
+
+
+
+Tabla de pedidos
+	nombre
+	contacto
+	negros12
+	negros10
+	blancos12
+	blancos10
+	mensaje
+
+
