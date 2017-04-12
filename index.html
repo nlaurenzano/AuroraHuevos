@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8">
     
-    <?php require_once('./php/funciones.php') ?>
-    
     <title>En estas Pascuas regalá huevos artesanales</title>
     <meta name="description" content="En estas Pascuas regalá huevos artesanales" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,49 +36,49 @@
 
                             <div class="col-md-12">
                                 <label class="text-left">DATOS DE CONTACTO</label>
-                                <input type="text" class="form-control" placeholder="Nombre" name="name" id="name">
+                                <input disabled="true" type="text" class="form-control" placeholder="Nombre" name="name" id="name">
                             </div>
 
                             <div class="col-md-12">
                                 <label></label>
-                                <input type="text" class="form-control" placeholder="Nro. de teléfono o Email" name="email" id="email">
+                                <input disabled="true" type="text" class="form-control" placeholder="Nro. de teléfono o Email" name="email" id="email">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="col-md-12">
                                 <label>CHOCOLATE NEGRO</label>
-                                <input type="text" class="form-control" placeholder="Nro. 12 - $60 (200g.)" name="negros12" id="negros12">
+                                <input disabled="true" type="text" class="form-control" placeholder="Nro. 12 - $60 (200g.)" name="negros12" id="negros12">
                             </div>
 
                             <div class="col-md-12">
                                 <label></label>
-                                <input type="text" class="form-control" placeholder="Nro. 10 - $40" name="negros10" id="negros10">
+                                <input disabled="true" type="text" class="form-control" placeholder="Nro. 10 - $40" name="negros10" id="negros10">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="col-md-12">
                                 <label>CHOCOLATE BLANCO</label>
-                                <input type="text" class="form-control" placeholder="Nro. 12 - $60 (200g.)" name="blancos12" id="blancos12">
+                                <input disabled="true" type="text" class="form-control" placeholder="Nro. 12 - $60 (200g.)" name="blancos12" id="blancos12">
                             </div>
 
                             <div class="col-md-12">
                                 <label></label>
-                                <input type="text" class="form-control" placeholder="Nro. 10 - $40" name="blancos10" id="blancos10">
+                                <input disabled="true" type="text" class="form-control" placeholder="Nro. 10 - $40" name="blancos10" id="blancos10">
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="col-md-12">
                                 <label></label>
-                                <textarea class="form-control" rows="4" placeholder="Mensaje (opcional)" name="message" id="message"></textarea>
+                                <textarea disabled="true" class="form-control" rows="4" placeholder="Mensaje (opcional)" name="message" id="message"></textarea>
                             </div>
                         </div>
 
                         <div class="col-md-4 col-md-offset-4">
                             <label></label>
-                            <button type="button" onclick="SendContactEmail()" data-toggle="modal" data-target="#alertModal" class="btn btn-primary btn-block btn-lg">Enviar <i class="ion-android-arrow-forward"></i></button>
+                            <button disabled="true" type="button" onclick="SendContactEmail()" data-toggle="modal" data-target="#alertModal" class="btn btn-primary btn-block btn-lg">Enviar <i class="ion-android-arrow-forward"></i></button>
                         </div>
                     </form>
                 </div>
@@ -110,6 +108,5 @@
     <script src="./js/scripts.js"></script>
     <script src="./js/ajax.js"></script>
 
-    <sc
   </body>
 </html>
